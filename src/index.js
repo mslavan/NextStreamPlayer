@@ -6,7 +6,6 @@ import { SignalIcon } from "./decorations";
 import { xor } from "./utils";
 import AgoraIcon from "./assets/agora.png";
 import SpeakerIcon from "./assets/speaker.png";
-import "./style.css";
 
 type Props = {
   // basic
@@ -209,53 +208,116 @@ export default class extends Component<Props, State> {
 
     const { onClick, onDoubleClick, style } = this.props;
     return (
-      <div
-        onClick={onClick}
-        onDoubleClick={onDoubleClick}
-        style={style}
-        className={className}
-        id={id}
-      >
-        {/* mask */}
-        {(!this.props.video ||
-          !(this._snapshot && this._snapshot.hasVideo)) && (
-          <div className="agora-player__placeholder">
-            {this.props.placeholder ? (
-              this.props.placeholder
-            ) : (
-              <img
-                style={{ maxWidth: "80%" }}
-                src={AgoraIcon}
-                alt="placeholder for video"
-              />
-            )}
-          </div>
-        )}
-
-        {/* decorations */}
-        <div className="agora-player__decorations">
-          {this.props.prependIcon}
-
-          {/* decoration to display network status */}
-          {this.props.networkDetect && (
-            <SignalIcon level={this.state.networkStatus} />
-          )}
-
-          {/* decoration to show if this stream is speaking  */}
-          {this.props.speaking && (
-            <div className="agora-player__icon">
-              <img title="Is speaking" src={SpeakerIcon} alt="speaking" />
+      <>
+        <style>
+         `
+          .agora-player__box {
+            position: relative;
+            width: 240px;
+            height: 180px;
+          }
+          .agora-player__placeholder {
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #EEEEEE;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .agora-player__box.contain video{
+            left: 0;
+            object-fit: contain!important;
+          }
+          .agora-player__box.cover video{
+            left: 0;
+            object-fit: cover!important;
+          }
+          .agora-player__decorations {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            z-index: 2;
+            display: flex;
+            white-space: nowrap;
+          }
+          .agora-player__icon {
+            display: inline-flex;
+            margin: 3px;
+            width: 24px;
+            height: 24px;
+            justify-content: center;
+            align-items: center;
+            transition: .3s all ease-in-out;
+          }
+          .agora-player__icon img {
+            max-width: 100%;
+          }
+          .agora-player__label {
+            position: absolute;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            height: 24px;
+            width: 100%;
+            bottom: 0;
+            z-index: 2;
+            right: 0;
+          }
+          `
+        </style>
+        <div
+          onClick={onClick}
+          onDoubleClick={onDoubleClick}
+          style={style}
+          className={className}
+          id={id}
+        >
+          {/* mask */}
+          {(!this.props.video ||
+            !(this._snapshot && this._snapshot.hasVideo)) && (
+            <div className="agora-player__placeholder">
+              {this.props.placeholder ? (
+                this.props.placeholder
+              ) : (
+                <img
+                  style={{ maxWidth: "80%" }}
+                  src={AgoraIcon}
+                  alt="placeholder for video"
+                />
+              )}
             </div>
           )}
 
-          {this.props.appendIcon}
-        </div>
+          {/* decorations */}
+          <div className="agora-player__decorations">
+            {this.props.prependIcon}
 
-        {/* display stream label */}
-        {this.props.label && (
-          <div className="agora-player__label">{this.props.label}</div>
-        )}
-      </div>
+            {/* decoration to display network status */}
+            {this.props.networkDetect && (
+              <SignalIcon level={this.state.networkStatus} />
+            )}
+
+            {/* decoration to show if this stream is speaking  */}
+            {this.props.speaking && (
+              <div className="agora-player__icon">
+                <img title="Is speaking" src={SpeakerIcon} alt="speaking" />
+              </div>
+            )}
+
+            {this.props.appendIcon}
+          </div>
+
+          {/* display stream label */}
+          {this.props.label && (
+            <div className="agora-player__label">{this.props.label}</div>
+          )}
+        </div>
+      </>
     );
   }
 }
