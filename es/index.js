@@ -8,10 +8,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 import React, { Component } from "react";
 
-import { SignalIcon } from "./decorations";
 import { xor } from "./utils";
-import AgoraIcon from "./assets/agora.png";
-import SpeakerIcon from "./assets/speaker.png";
 
 var _default = (_temp = _class = function (_Component) {
   _inherits(_default, _Component);
@@ -192,22 +189,13 @@ var _default = (_temp = _class = function (_Component) {
         (!this.props.video || !(this._snapshot && this._snapshot.hasVideo)) && React.createElement(
           "div",
           { className: "agora-player__placeholder" },
-          this.props.placeholder ? this.props.placeholder : React.createElement("img", {
-            style: { maxWidth: "80%" },
-            src: AgoraIcon,
-            alt: "placeholder for video"
-          })
+          this.props.placeholder ? this.props.placeholder : null
         ),
         React.createElement(
           "div",
           { className: "agora-player__decorations" },
           this.props.prependIcon,
-          this.props.networkDetect && React.createElement(SignalIcon, { level: this.state.networkStatus }),
-          this.props.speaking && React.createElement(
-            "div",
-            { className: "agora-player__icon" },
-            React.createElement("img", { title: "Is speaking", src: SpeakerIcon, alt: "speaking" })
-          ),
+          this.props.speaking && React.createElement("div", { className: "agora-player__icon" }),
           this.props.appendIcon
         ),
         this.props.label && React.createElement(

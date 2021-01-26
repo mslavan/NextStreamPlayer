@@ -1,11 +1,8 @@
 // @flow
 import React, { Component } from "react";
 import type { Node } from "react";
-import type { Client, Stream } from "../types/agora.js";
-import { SignalIcon } from "./decorations";
+import type { Stream } from "../types/agora.js";
 import { xor } from "./utils";
-import AgoraIcon from "./assets/agora.png";
-import SpeakerIcon from "./assets/speaker.png";
 
 type Props = {
   // basic
@@ -283,13 +280,7 @@ export default class extends Component<Props, State> {
             <div className="agora-player__placeholder">
               {this.props.placeholder ? (
                 this.props.placeholder
-              ) : (
-                <img
-                  style={{ maxWidth: "80%" }}
-                  src={AgoraIcon}
-                  alt="placeholder for video"
-                />
-              )}
+              ) : null}
             </div>
           )}
 
@@ -297,15 +288,9 @@ export default class extends Component<Props, State> {
           <div className="agora-player__decorations">
             {this.props.prependIcon}
 
-            {/* decoration to display network status */}
-            {this.props.networkDetect && (
-              <SignalIcon level={this.state.networkStatus} />
-            )}
-
             {/* decoration to show if this stream is speaking  */}
             {this.props.speaking && (
               <div className="agora-player__icon">
-                <img title="Is speaking" src={SpeakerIcon} alt="speaking" />
               </div>
             )}
 
