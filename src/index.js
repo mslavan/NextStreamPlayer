@@ -208,9 +208,9 @@ export default class extends Component<Props, State> {
 
     const { onClick, onDoubleClick, style } = this.props;
     return (
-      <>
+      <React.Fragment>
         <style>
-         `
+          {`
           .agora-player__box {
             position: relative;
             width: 240px;
@@ -268,7 +268,7 @@ export default class extends Component<Props, State> {
             z-index: 2;
             right: 0;
           }
-          `
+          `}
         </style>
         <div
           onClick={onClick}
@@ -317,7 +317,7 @@ export default class extends Component<Props, State> {
             <div className="agora-player__label">{this.props.label}</div>
           )}
         </div>
-      </>
+      </React.Fragment>
     );
   }
 }
